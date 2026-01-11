@@ -162,6 +162,8 @@ git clone https://github.com/Nabin-16/artenis_server.git
 cd artenis_server/flask_server
 ```
 
+> **Note:** The repository is named `artenis_server` (not `artemis_server`)
+
 ### 2. Install Dependencies
 
 ```bash
@@ -570,11 +572,13 @@ kill -9 <PID>
   "lat": 27.7172,      // Latitude (decimal degrees)
   "lon": 85.3240,      // Longitude (decimal degrees)
   "alt": 1400,         // Altitude (meters)
-  "speed": 5.5,        // Speed (m/s or km/h depending on source)
+  "speed": 5.5,        // Speed (units depend on ESP32 GPS module configuration, typically m/s)
   "accuracy": 10,      // Accuracy (meters)
   "timestamp": "ISO 8601 datetime string"
 }
 ```
+
+> **Note:** Units are determined by the ESP32 GPS module. The server stores and forwards values as received.
 
 ### IMU Data Structure
 ```json
@@ -584,22 +588,24 @@ kill -9 <PID>
     "y": 0.2,
     "z": 9.8
   },
-  "gyro": {            // Gyroscope (rad/s or deg/s)
+  "gyro": {            // Gyroscope (units depend on ESP32 IMU configuration, typically deg/s or rad/s)
     "x": 0.01,
     "y": 0.02,
     "z": 0.03
   },
-  "mag": {             // Magnetometer (μT)
+  "mag": {             // Magnetometer (μT or Gauss, depending on sensor)
     "x": 20,
     "y": 30,
     "z": 40
   },
-  "alpha": 0,          // Rotation around Z axis (optional)
-  "beta": 0,           // Rotation around X axis (optional)
-  "gamma": 0,          // Rotation around Y axis (optional)
+  "alpha": 0,          // Rotation around Z axis in degrees (optional)
+  "beta": 0,           // Rotation around X axis in degrees (optional)
+  "gamma": 0,          // Rotation around Y axis in degrees (optional)
   "timestamp": "ISO 8601 datetime string"
 }
 ```
+
+> **Note:** Units are determined by the ESP32 IMU sensor configuration. The server stores and forwards values as received. Consult your ESP32 firmware documentation for specific units.
 
 ---
 
